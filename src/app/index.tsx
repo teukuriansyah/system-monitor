@@ -1,98 +1,62 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Text, View } from "react-native";
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+export default function Index() {
+  const buildSpecs =[["Manufacture","Brand","Model","Board","Product"],["Manufacture","Brand","Model","Board"]]
+  const androidSpecs =[["Android Version"],["14"]]
+  const allSpecs = ["buildSpecs","androidSpecs"]
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
+    <View>
+      {/* Navbar */}
+      <View>
+      </View>
+
+      {/* Header */}
+      <View>
+        <View>
+          <View>{/*logo hp*/}</View>
+          <View>
+            <View className="flex flex-row items-center gap-2">
+              <Text className="text-2xl font-bold">Merk Hp</Text>
+              <View className="bg-green-600 rounded-full px-3"><Text className="text-sm text-green-300 font-bold">VERIFIED</Text></View>
+            </View>
+            <Text className="text-sm text-gray-400">Board hp</Text>
+          </View>
+          <View>{/*logo share*/}</View>
+        </View>
+        <View className="flex flex-row items-center gap-4">
+          <View>
+            <Text className="text-gray-400 text-sm">ANDROID</Text>
+            <Text className="font-bold text-2xl text-blue-600">14</Text>
+          </View>
+          <View>
+            <Text className="text-gray-400 text-sm">SOC Setup</Text>
+            <Text className="font-bold text-2xl text-green-600">9-Core</Text>
+          </View>
+          <View>
+            <Text className="text-gray-400 text-sm">DISPLAY</Text>
+            <Text className="font-bold text-2xl text-yellow-600">120Hz</Text>
+          </View>
+        </View>
+      </View>
+
+      {/* Section */}
+      <View>
+        {allSpecs.map((d,i) => <View>
+          <View className="flex flex-row gap-2">
+            <View>{/*logo android*/}</View>
+            <View><Text className="text-xl font-bold">{d}</Text></View>
+          </View>
+          <View className="flex flex-row justify-between">
+            <View>
+              {androidSpecs[0].map((d,i) => <Text>{d}</Text>)}
+            </View>
+            <View >
+              {androidSpecs[1].map((d,i) => <Text>{d}</Text>)}
+            </View>
+          </View>
+        </View>)}
+      </View>
+    </View>
   );
 }
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
-  },
-});
