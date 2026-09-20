@@ -1,60 +1,65 @@
-import { Text, View } from "react-native";
+import { Text, View, Pressable, ScrollView } from "react-native";
+import { Feather, Ionicons } from '@expo/vector-icons';
+import { useState } from "react"
+import DeviceSection from "@/components/DeviceSection";
 
 export default function Device() {
-  const buildSpecs =[["Manufacture","Brand","Model","Board","Product"],["Manufacture","Brand","Model","Board"]]
-  const androidSpecs =[["Android Version"],["14"]]
-  const allSpecs = ["buildSpecs","androidSpecs"]
+  const [selectedCategory, setSelectedCategory] = useState("all")
+  const allSpecs = ["buildSpecs","androidSpecs","displaySpecs"]
   return (
     <View>
-      {/* Navbar */}
-      <View>
-      </View>
-
       {/* Header */}
-      <View>
-        <View>
-          <View>{/*logo hp*/}</View>
-          <View>
-            <View className="flex flex-row items-center gap-2">
-              <Text className="text-2xl font-bold">Merk Hp</Text>
-              <View className="bg-green-600 rounded-full px-3"><Text className="text-sm text-green-300 font-bold">VERIFIED</Text></View>
+      <View className="px-5 py-2">
+        <View className="gap-2 p-5 border rounded-lg">
+          <View className="flex flex-row items-center justify-between">
+            <View className="flex flex-row items-center gap-1">
+              <View><Feather name="smartphone" size={24} color="#004E5C" /></View>
+              <View className="px-2">
+                <View className="flex flex-row items-center gap-2">
+                  <Text className="text-2xl font-bold">Merk Hp</Text>
+                  <View className="bg-green-600 rounded-full px-3"><Text className="text-sm text-green-300 font-bold">VERIFIED</Text></View>
+                </View>
+                <Text className="text-sm text-gray-400">Board hp</Text>
+              </View>
             </View>
-            <Text className="text-sm text-gray-400">Board hp</Text>
+            <View>
+              <Feather name="share-2" size={24} color="#004E5C" />
+            </View>
           </View>
-          <View>{/*logo share*/}</View>
+          <View className="px-3 flex flex-row items-center gap-4 justify-between">
+            <View>
+              <Text className="text-gray-400 text-sm text-center">ANDROID</Text>
+              <Text className="font-bold text-2xl text-blue-600 text-center">14</Text>
+            </View>
+            <View>
+              <Text className="text-gray-400 text-sm text-center">SOC Setup</Text>
+              <Text className="font-bold text-2xl text-green-600 text-center">9-Core</Text>
+            </View>
+            <View>
+              <Text className="text-gray-400 text-sm text-center">DISPLAY</Text>
+              <Text className="font-bold text-2xl text-yellow-600">120Hz</Text>
+            </View>
+          </View>
         </View>
-        <View className="flex flex-row items-center gap-4">
-          <View>
-            <Text className="text-gray-400 text-sm">ANDROID</Text>
-            <Text className="font-bold text-2xl text-blue-600">14</Text>
-          </View>
-          <View>
-            <Text className="text-gray-400 text-sm">SOC Setup</Text>
-            <Text className="font-bold text-2xl text-green-600">9-Core</Text>
-          </View>
-          <View>
-            <Text className="text-gray-400 text-sm">DISPLAY</Text>
-            <Text className="font-bold text-2xl text-yellow-600">120Hz</Text>
-          </View>
-        </View>
+      </View>
+      
+      {/* Button */}
+      <View className="py-5 px-5 overflow-hidden">
+        <ScrollView 
+          horizontal={true} 
+          showsHorizontalScrollIndicator={false}
+          contentContainerClassName="flex-row gap-5 items-center"
+        >
+          <Pressable className="border rounded-xl p-3" onPress={() => setSelectedCategory("all")}><Text>All Specs</Text></Pressable>
+          <Pressable className="border rounded-xl p-3" onPress={() => setSelectedCategory("hardware")}><Text>Hardware</Text></Pressable>
+          <Pressable className="border rounded-xl p-3" onPress={() => setSelectedCategory("android")}><Text>Android OS</Text></Pressable>
+          <Pressable className="border rounded-xl p-3" onPress={() => setSelectedCategory("display")}><Text>Display Metrics</Text></Pressable>
+        </ScrollView>
       </View>
 
       {/* Section */}
-      <View>
-        {allSpecs.map((d,i) => <View>
-          <View className="flex flex-row gap-2">
-            <View>{/*logo android*/}</View>
-            <View><Text className="text-xl font-bold">{d}</Text></View>
-          </View>
-          <View className="flex flex-row justify-between">
-            <View>
-              {androidSpecs[0].map((d,i) => <Text>{d}</Text>)}
-            </View>
-            <View >
-              {androidSpecs[1].map((d,i) => <Text>{d}</Text>)}
-            </View>
-          </View>
-        </View>)}
+      <View className="px-5 gap-4 py-2">
+        {(selectedCategory == "all") ? allSpecs.map((d,i) => <DeviceSection key={i} icon={d} specs={d}/>) : ((selectedCategory == "android")) ? <DeviceSection icon="androidSpecs" specs="androidSpecs"/> : ((selectedCategory == "hardware")) ? <DeviceSection icon="buildSpecs" specs="buildSpecs"/> : <DeviceSection icon="displaySpecs" specs="displaySpecs"/>}
       </View>
     </View>
   );
