@@ -1,11 +1,35 @@
 import { Text, View, Pressable, ScrollView } from "react-native";
-import { Feather, Ionicons } from '@expo/vector-icons';
-import { useState } from "react"
+import { Feather } from '@expo/vector-icons';
+import { useState, useEffect } from "react"
+import DeviceInfo from "../../modules/device/src/DeviceModule"
 import DeviceSection from "@/components/DeviceSection";
 
 export default function Device() {
   const [selectedCategory, setSelectedCategory] = useState("all")
+  const [buildSpecs, setBuildSpecs] = useState<string[]>([]) 
+  const [osVersion, setOsVersion] = useState<string[]>([])
+  const [display, setDisplay] = useState<any>(["100 x 100","500 dpi"])
   const allSpecs = ["buildSpecs","androidSpecs","displaySpecs"]
+
+  const getBuildSpecs = () => {
+    const board = DeviceInfo.getBoard()
+    const brand = DeviceInfo.getBrand()
+    const model = DeviceInfo.getModel()
+    const manufacture = DeviceInfo.getManufacture()
+    const product = DeviceInfo.getProduct()
+    setBuildSpecs([manufacture,brand,model,board,product])
+  }
+
+  const getOsVersion = () => {
+    const androidVersion = DeviceInfo.getOsVersion()
+    const sdkVersion = DeviceInfo.getSdkVersion()
+    setOsVersion([androidVersion,sdkVersion])
+  }
+
+  useEffect(() => {
+    getBuildSpecs()
+    getOsVersion()
+  },[])
   return (
     <View>
       {/* Header */}
@@ -29,7 +53,7 @@ export default function Device() {
           <View className="px-3 flex flex-row items-center gap-4 justify-between">
             <View>
               <Text className="text-gray-400 text-sm text-center">ANDROID</Text>
-              <Text className="font-bold text-2xl text-blue-600 text-center">14</Text>
+              <Text className="font-bold text-2xl text-blue-600 text-center">{osVersion[0]}</Text>
             </View>
             <View>
               <Text className="text-gray-400 text-sm text-center">SOC Setup</Text>
@@ -59,7 +83,7 @@ export default function Device() {
 
       {/* Section */}
       <View className="px-5 gap-4 py-2">
-        {(selectedCategory == "all") ? allSpecs.map((d,i) => <DeviceSection key={i} icon={d} specs={d}/>) : ((selectedCategory == "android")) ? <DeviceSection icon="androidSpecs" specs="androidSpecs"/> : ((selectedCategory == "hardware")) ? <DeviceSection icon="buildSpecs" specs="buildSpecs"/> : <DeviceSection icon="displaySpecs" specs="displaySpecs"/>}
+        {(selectedCategory == "all") ? allSpecs.map((d,i) => <DeviceSection key={i} icon={d} specs={d} dataOsVersion={osVersion} dataBuildSpecs={buildSpecs} dataDisplay={display}/>) : ((selectedCategory == "android")) ? <DeviceSection icon="androidSpecs" specs="androidSpecs" dataOsVersion={osVersion}/> : ((selectedCategory == "hardware")) ? <DeviceSection icon="buildSpecs" specs="buildSpecs" dataBuildSpecs={buildSpecs}/> : <DeviceSection icon="displaySpecs" specs="displaySpecs" dataDisplay={display}/>}
       </View>
     </View>
   );

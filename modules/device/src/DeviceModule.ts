@@ -1,14 +1,13 @@
-import { NativeModule, requireNativeModule } from 'expo';
+import { requireNativeModule } from 'expo-modules-core';
 
-declare class DeviceModule extends NativeModule<{}> {
-  getOsVersion:() => string;
-  getSdkVersion:() => string;
-  getProduct:() => string;
-  getBoard:() => string;
-  getBrand:() => string;
-  getManufacture:() => string;
-  getModel:() => string;
-  getDisplayMetrics:() => string[];
+interface DeviceModuleType {
+  getOsVersion(): string;
+  getSdkVersion(): string;
+  getProduct(): string;
+  getBoard(): string;
+  getBrand(): string;
+  getManufacture(): string;
+  getModel(): string;
 }
 
-export default requireNativeModule<DeviceModule>('Device');
+export default requireNativeModule<DeviceModuleType>('Device');

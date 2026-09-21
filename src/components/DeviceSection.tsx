@@ -2,9 +2,9 @@ import { Text, View } from "react-native";
 import { Feather, Ionicons } from '@expo/vector-icons';
 
 const DeviceSection = (props:any) => {
-  const buildSpecs =[["Manufacture","Brand","Model","Board","Product"],["Manufacture","Brand","Model","Board"]]
-  const androidSpecs =[["Android Version", "SDK / API Level"],["14"]]
-  const displaySpecs = [["Resolution", "Density"],["100 x 100 pixels", "500 Dpi"]]
+  const buildSpecs =[["Manufacture","Brand","Model","Board","Product"],props.dataBuildSpecs]
+  const androidSpecs =[["Android Version", "SDK / API Level"],props.dataOsVersion]
+  const displaySpecs = [["Resolution", "Density"],props.dataDisplay]
 
   return (
     <View className="border p-4 rounded-lg">
@@ -31,17 +31,17 @@ const DeviceSection = (props:any) => {
       <View className="flex flex-row justify-between mt-2">
         <View>
           {props.specs == "androidSpecs"
-            ? androidSpecs[0].map((d, i) => <Text key={i}>{d}</Text>)
+            ? androidSpecs[0].map((d:any, i:any) => <Text key={i}>{d}</Text>)
             : props.specs == "buildSpecs"
-              ? buildSpecs[0].map((d, i) => <Text key={i}>{d}</Text>)
-              : displaySpecs[0].map((d, i) => <Text key={i}>{d}</Text>)}
+              ? buildSpecs[0].map((d:any, i:any) => <Text key={i}>{d}</Text>)
+              : displaySpecs[0].map((d:any, i:any) => <Text key={i}>{d}</Text>)}
         </View>
         <View>
           {props.specs == "androidSpecs"
-            ? androidSpecs[1].map((d, i) => <Text key={i}>{d}</Text>)
+            ? androidSpecs[1]?.map((d:any, i:any) => <Text key={i}>{d}</Text>)
             : props.specs == "buildSpecs"
-              ? buildSpecs[1].map((d, i) => <Text key={i}>{d}</Text>)
-              : displaySpecs[1].map((d, i) => <Text key={i}>{d}</Text>)}
+              ? buildSpecs[1]?.map((d:any, i:any) => <Text key={i}>{d}</Text>)
+              : displaySpecs[1]?.map((d:any, i:any) => <Text key={i}>{d}</Text>)}
         </View>
       </View>
     </View>

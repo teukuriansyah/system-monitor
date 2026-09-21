@@ -1,7 +1,30 @@
 import { Text, View } from "react-native";
-import { Link } from "expo-router"
+import { useState, useEffect } from "react"
+import DeviceInfo from "../../modules/device/src/DeviceModule"
+import Battery from "../../modules/battery/src/BatteryModule"
 
 export default function Index() {
+  const [deviceSummary,setDeviceSummary] = useState<any>()
+  const [backgroundMonitor,setBackgroundMonitor] = useState<any>()
+
+  const getDeviceSummary = () => {
+    const model = DeviceInfo.getModel()
+    const osVersion = DeviceInfo.getOsVersion()
+    setDeviceSummary({model,osVersion})
+  }
+
+  const getBackgroundMonitoring = () => {
+    const batteryLevel = Battery.getBatteryLevel()
+    const temp = Battery.getTemp()
+    const batteryType = Battery.getBatteryType()
+    const voltage = Battery.getVoltage()
+    setBackgroundMonitor({batteryLevel, temp, batteryType, voltage})
+  }
+
+  useEffect(() => {
+    getDeviceSummary()
+    getBackgroundMonitoring()
+  },[])
   return (
     <View>
       {/* Background Monitoring */}
@@ -15,8 +38,8 @@ export default function Index() {
             </View>
           </View>
           <View className="flex flex-row justify-between">
-            <Text className="text-sm">Batt: </Text>
-            <Text className="text-sm">Temp: </Text>
+            <Text className="text-sm">Batt: {backgroundMonitor?.batteryLevel}</Text>
+            <Text className="text-sm">Temp: {backgroundMonitor?.temp}°C</Text>
           </View>
         </View>
       </View>
@@ -30,11 +53,11 @@ export default function Index() {
           <View className="flex flex-row justify-between">
             <View>
               <Text className="text-sm text-gray-400">Model & Hardware</Text>
-              <Text className="font-bold">Model & Hardware</Text>
+              <Text className="font-bold">{deviceSummary?.model}</Text>
             </View>
             <View>
-              <Text className="text-sm text-gray-400">Model & Hardware</Text>
-              <Text className="font-bold">Model & Hardware</Text>
+              <Text className="text-sm text-gray-400">Android Runtime</Text>
+              <Text className="font-bold">Android {deviceSummary?.osVersion}</Text>
             </View>
           </View>
         </View>
@@ -48,16 +71,16 @@ export default function Index() {
           </View>
           <View className="flex flex-row justify-between">
             <View>
-              <Text>Temp</Text>
-              <Text>31°C</Text>
+              <Text className="text-sm text-center">Temp</Text>
+              <Text className="text-lg font-bold text-center">{backgroundMonitor?.temp}°C</Text>
             </View>
             <View>
-              <Text>Temp</Text>
-              <Text>31°C</Text>
+              <Text className="text-sm text-center">Voltage</Text>
+              <Text className="text-lg font-bold text-center">{parseInt(backgroundMonitor?.voltage)}V</Text>
             </View>
             <View>
-              <Text>Temp</Text>
-              <Text>31°C</Text>
+              <Text className="text-sm text-center">Battery Type</Text>
+              <Text className="text-lg font-bold text-center">{backgroundMonitor?.batteryType}</Text>
             </View>
           </View>
         </View>
