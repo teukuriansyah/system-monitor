@@ -3,13 +3,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Navbar() {
   return(
-    <SafeAreaView className="px-7 flex flex-row items-center gap-4">
+    <SafeAreaView className="px-7 flex flex-row items-center gap-4 bg-[#0b1326]">
       <View>
         <Image source={require("../assets/screen.png")} className="aspect-square h-12"/>
       </View>
       <View>
-        <Text className="text-2xl font-bold">System</Text>
-        <Text className="text-2xl font-bold">Monitor</Text>
+        <Text className="text-2xl font-bold text-[#dee6ff]">System</Text>
+        <Text className="text-2xl font-bold text-[#dee6ff]">Monitor</Text>
       </View>
     </SafeAreaView>
   )

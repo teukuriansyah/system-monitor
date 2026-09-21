@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, View, ScrollView } from "react-native";
 import { useState, useEffect } from "react"
 import DeviceInfo from "../../modules/device/src/DeviceModule"
 import Battery from "../../modules/battery/src/BatteryModule"
@@ -26,33 +26,33 @@ export default function Index() {
     getBackgroundMonitoring()
   },[])
   return (
-    <View>
+    <ScrollView className="bg-[#0b1326]">
       {/* Background Monitoring */}
       <View className="px-5 py-2">
-        <View className="border rounded-lg p-3 gap-3">
+        <View className="rounded-lg p-3 gap-3 bg-[#141e35]">
           <View>
             <View></View>
             <View>
-              <Text className="font-bold text-xl">Background Monitoring</Text>
+              <Text className="font-bold text-xl text-[#f3f5f7]">Background Monitoring</Text>
               <Text className="text-sm text-gray-400">Foreground Service Engine</Text>
             </View>
           </View>
           <View className="flex flex-row justify-between">
-            <Text className="text-sm">Batt: {backgroundMonitor?.batteryLevel}</Text>
-            <Text className="text-sm">Temp: {backgroundMonitor?.temp}°C</Text>
+            <Text className="text-sm text-gray-400">Batt: {backgroundMonitor?.batteryLevel}</Text>
+            <Text className="text-sm text-gray-400">Temp: {backgroundMonitor?.temp}°C</Text>
           </View>
         </View>
       </View>
 
       {/* Device Summary */}
       <View className="px-5 py-2">
-        <View className="flex gap-3 rounded-lg border p-4">
+        <View className="flex gap-3 rounded-lg bg-[#141e35] p-4">
           <View>
-            <Text className="font-bold text-xl">Device Summary</Text>
+            <Text className="font-bold text-xl text-[#f3f5f7]">Device Summary</Text>
           </View>
           <View className="flex flex-row justify-between">
             <View>
-              <Text className="text-sm text-gray-400">Model & Hardware</Text>
+              <Text className="text-sm text-gray-400 ">Model & Hardware</Text>
               <Text className="font-bold">{deviceSummary?.model}</Text>
             </View>
             <View>
@@ -65,27 +65,27 @@ export default function Index() {
 
       {/* Battery Telemetry */}
       <View className="px-5 py-2">
-        <View className="border rounded-lg p-4">
+        <View className="bg-[#141e35] rounded-lg p-4">
           <View>
-            <Text className="font-bold text-xl">Battery Telemetry</Text>
+            <Text className="font-bold text-xl text-[#f3f5f7]">Battery Telemetry</Text>
           </View>
           <View className="flex flex-row justify-between">
             <View>
-              <Text className="text-sm text-center">Temp</Text>
+              <Text className="text-sm text-center text-gray-400">Temp</Text>
               <Text className="text-lg font-bold text-center">{backgroundMonitor?.temp}°C</Text>
             </View>
             <View>
-              <Text className="text-sm text-center">Voltage</Text>
+              <Text className="text-sm text-center text-gray-400">Voltage</Text>
               <Text className="text-lg font-bold text-center">{parseInt(backgroundMonitor?.voltage)}V</Text>
             </View>
             <View>
-              <Text className="text-sm text-center">Battery Type</Text>
+              <Text className="text-sm text-center text-gray-400">Battery Type</Text>
               <Text className="text-lg font-bold text-center">{backgroundMonitor?.batteryType}</Text>
             </View>
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
