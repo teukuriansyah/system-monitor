@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "system-monitor",
+    "name": "System Monitor",
     "slug": "system-monitor",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./src/assets/screen.png",
     "scheme": "systemmonitor",
     "userInterfaceStyle": "automatic",
     "ios": {
