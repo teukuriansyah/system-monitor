@@ -32,7 +32,7 @@ export default function Device() {
   const getDisplayMetrics = () => {
     const resolution = DeviceInfo.getResolution()
     const dpi = DeviceInfo.getDpi()
-    setDisplayMetrics({resolution,dpi})
+    setDisplayMetrics([`${resolution[0]} x ${resolution[1]}`,dpi])
   }
   
   const getSocAndDisplayRefreshRate = () => {
@@ -100,7 +100,7 @@ export default function Device() {
 
       {/* Section */}
       <View className="px-5 gap-4 py-2">
-        {(selectedCategory == "all") ? allSpecs.map((d,i) => <DeviceSection key={i} icon={d} specs={d} dataOsVersion={osVersion} dataBuildSpecs={buildSpecs} dataDisplay={display}/>) : ((selectedCategory == "android")) ? <DeviceSection icon="androidSpecs" specs="androidSpecs" dataOsVersion={osVersion}/> : ((selectedCategory == "hardware")) ? <DeviceSection icon="buildSpecs" specs="buildSpecs" dataBuildSpecs={buildSpecs}/> : <DeviceSection icon="displaySpecs" specs="displaySpecs" dataDisplay={display}/>}
+        {(selectedCategory == "all") ? allSpecs.map((d,i) => <DeviceSection key={i} icon={d} specs={d} dataOsVersion={osVersion} dataBuildSpecs={buildSpecs} dataDisplay={displayMetrics}/>) : ((selectedCategory == "android")) ? <DeviceSection icon="androidSpecs" specs="androidSpecs" dataOsVersion={osVersion}/> : ((selectedCategory == "hardware")) ? <DeviceSection icon="buildSpecs" specs="buildSpecs" dataBuildSpecs={buildSpecs}/> : <DeviceSection icon="displaySpecs" specs="displaySpecs" dataDisplay={displayMetrics}/>}
       </View>
     </ScrollView>
   );

@@ -1,6 +1,5 @@
 import { Text, View, ScrollView } from "react-native"
 import { useState, useEffect } from "react"
-import { Host, CircularProgressIndicator } from '@expo/ui/jetpack-compose';
 import DeviceInfo from "../../modules/device/src/DeviceModule"
 import AdaptiveBatteryCircle from "@/components/AdaptiveCircleBattery";
 import Battery from "../../modules/battery/src/BatteryModule"

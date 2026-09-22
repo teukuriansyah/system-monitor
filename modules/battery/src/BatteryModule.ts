@@ -7,6 +7,8 @@ declare class BatteryModule extends NativeModule<{}> {
     getBatteryType:() => string;
     getBatterySoc:() => number;
     getDisplayRefreshRate:() => number;
+    getCurrentDrawMa:() => number;
+    getTotalCapacityMah:() => number;
 }
 
 export default requireNativeModule<BatteryModule>('Battery');
