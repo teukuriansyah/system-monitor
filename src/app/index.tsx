@@ -1,6 +1,8 @@
-import { Text, View, ScrollView } from "react-native";
+import { Text, View, ScrollView } from "react-native"
 import { useState, useEffect } from "react"
+import { Host, CircularProgressIndicator } from '@expo/ui/jetpack-compose';
 import DeviceInfo from "../../modules/device/src/DeviceModule"
+import AdaptiveBatteryCircle from "@/components/AdaptiveCircleBattery";
 import Battery from "../../modules/battery/src/BatteryModule"
 
 export default function Index() {
@@ -53,11 +55,11 @@ export default function Index() {
           <View className="flex flex-row justify-between">
             <View>
               <Text className="text-sm text-gray-400 ">Model & Hardware</Text>
-              <Text className="font-bold">{deviceSummary?.model}</Text>
+              <Text className="font-bold text-[#f3f5f7]">{deviceSummary?.model}</Text>
             </View>
             <View>
               <Text className="text-sm text-gray-400">Android Runtime</Text>
-              <Text className="font-bold">Android {deviceSummary?.osVersion}</Text>
+              <Text className="font-bold text-[#f3f5f7]">Android {deviceSummary?.osVersion}</Text>
             </View>
           </View>
         </View>
@@ -69,18 +71,21 @@ export default function Index() {
           <View>
             <Text className="font-bold text-xl text-[#f3f5f7]">Battery Telemetry</Text>
           </View>
+          <View className="flex flex-row justify-center p-10">
+            <AdaptiveBatteryCircle batteryLevel={backgroundMonitor?.batteryLevel ?? 0} />
+          </View>
           <View className="flex flex-row justify-between">
             <View>
               <Text className="text-sm text-center text-gray-400">Temp</Text>
-              <Text className="text-lg font-bold text-center">{backgroundMonitor?.temp}°C</Text>
+              <Text className="text-lg font-bold text-center text-[#f3f5f7]">{backgroundMonitor?.temp}°C</Text>
             </View>
             <View>
               <Text className="text-sm text-center text-gray-400">Voltage</Text>
-              <Text className="text-lg font-bold text-center">{parseInt(backgroundMonitor?.voltage)}V</Text>
+              <Text className="text-lg font-bold text-center text-[#f3f5f7]">{parseInt(backgroundMonitor?.voltage)}V</Text>
             </View>
             <View>
               <Text className="text-sm text-center text-gray-400">Battery Type</Text>
-              <Text className="text-lg font-bold text-center">{backgroundMonitor?.batteryType}</Text>
+              <Text className="text-lg font-bold text-center text-[#f3f5f7]">{backgroundMonitor?.batteryType}</Text>
             </View>
           </View>
         </View>

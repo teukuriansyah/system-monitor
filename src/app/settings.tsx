@@ -1,17 +1,17 @@
-import { Text, View } from "react-native";
+import { Text, View, ScrollView } from "react-native";
 
 export default function Battery() {
   return (
-    <View>
+    <ScrollView className="bg-[#0b1326]">
       <View className="px-5 py-2">
-        <View className="p-4 border rounded-xl">
+        <View className="p-4 rounded-xl bg-[#141e35] rounded-lg">
           <View>
-            <Text className="text-lg font-bold">Foreground Service</Text>
+            <Text className="text-lg font-bold text-[#f3f5f7]">Foreground Service</Text>
           </View>
           <View className="flex flex-row justify-between">
             <View className="w-52">
-              <Text className="text-xl font-bold">Enable Background Monitoring</Text>
-              <Text className="text-sm">Runs Foreground Service with persistent status notification</Text>
+              <Text className="text-xl font-bold text-[#f3f5f7]">Enable Background Monitoring</Text>
+              <Text className="text-sm text-gray-400">Runs Foreground Service with persistent status notification</Text>
             </View>
             <View>
               <Text>Input</Text>
@@ -19,7 +19,7 @@ export default function Battery() {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

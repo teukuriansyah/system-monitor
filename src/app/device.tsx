@@ -40,10 +40,10 @@ export default function Device() {
               <View><Feather name="smartphone" size={24} color="#004E5C" /></View>
               <View className="px-2">
                 <View className="flex flex-row items-center gap-2">
-                  <Text className="text-2xl font-bold text-[#f3f5f7]">Merk Hp</Text>
+                  <Text className="text-2xl font-bold text-[#f3f5f7]">{buildSpecs[1]}</Text>
                   <View className="bg-green-600 rounded-full px-3"><Text className="text-sm text-green-300 font-bold">VERIFIED</Text></View>
                 </View>
-                <Text className="text-sm text-gray-400">Board hp</Text>
+                <Text className="text-sm text-gray-400">{buildSpecs[3]}</Text>
               </View>
             </View>
             <View>
