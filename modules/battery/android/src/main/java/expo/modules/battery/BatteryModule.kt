@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 import android.content.Context
+import android.view.WindowManager
+import android.os.Build
 
 class BatteryModule : Module() {
   private val context: Context
@@ -33,9 +35,9 @@ class BatteryModule : Module() {
 
       val tempInTenths = batteryStatus?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) ?: -1
       return@Function if (tempInTenths != -1) {
-          tempInTenths / 10.0f // Konversi ke Celsius (°C)
+          tempInTenths / 10.0f
       } else {
-          null // Suhu tidak tersedia
+          null
       }
     }
 
@@ -59,6 +61,24 @@ class BatteryModule : Module() {
       }
       val tech = batteryStatus?.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY) ?: "Unknown"
       return@Function tech
+    }
+
+    Function("getBatterySoc") {
+      val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+      return@Function batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY) 
+    }
+
+    Function("getDisplayRefreshRate") {
+        val currentActivity = appContext.currentActivity 
+            ?: throw IllegalStateException("Activity is not available")
+
+        return@Function if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            currentActivity.display?.mode?.refreshRate ?: 60.0f
+        } else {
+            val windowManager = currentActivity.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            @Suppress("DEPRECATION")
+            windowManager.defaultDisplay.refreshRate
+        }
     }
   }
 }

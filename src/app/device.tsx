@@ -1,6 +1,7 @@
 import { Text, View, Pressable, ScrollView } from "react-native";
 import { Feather } from '@expo/vector-icons';
 import { useState, useEffect } from "react"
+import Battery from "../../modules/battery/src/BatteryModule";
 import DeviceInfo from "../../modules/device/src/DeviceModule"
 import DeviceSection from "@/components/DeviceSection";
 
@@ -9,6 +10,7 @@ export default function Device() {
   const [buildSpecs, setBuildSpecs] = useState<string[]>([]) 
   const [osVersion, setOsVersion] = useState<string[]>([])
   const [display, setDisplay] = useState<any>(["100 x 100","500 dpi"])
+  const [socAndDisplayRefreshRate,setSocAndDisplayRefreshRate] = useState<any>([])
   const allSpecs = ["buildSpecs","androidSpecs","displaySpecs"]
 
   const getBuildSpecs = () => {
@@ -26,9 +28,16 @@ export default function Device() {
     setOsVersion([androidVersion,sdkVersion])
   }
 
+  const getSocAndDisplayRefreshRate = () => {
+    const soc = Battery.getBatterySoc()
+    const refreshRate = Battery.getDisplayRefreshRate()
+    setSocAndDisplayRefreshRate({soc,refreshRate})
+  }
+
   useEffect(() => {
     getBuildSpecs()
     getOsVersion()
+    getSocAndDisplayRefreshRate()
   },[])
   return (
     <ScrollView className="bg-[#0b1326]">
@@ -57,11 +66,11 @@ export default function Device() {
             </View>
             <View>
               <Text className="text-gray-400 text-sm text-center">SOC Setup</Text>
-              <Text className="font-bold text-2xl text-green-600 text-center">9-Core</Text>
+              <Text className="font-bold text-2xl text-green-600 text-center">{socAndDisplayRefreshRate?.soc}-Core</Text>
             </View>
             <View>
               <Text className="text-gray-400 text-sm text-center">DISPLAY</Text>
-              <Text className="font-bold text-2xl text-yellow-600">120Hz</Text>
+              <Text className="font-bold text-2xl text-yellow-600">{socAndDisplayRefreshRate?.refreshRate}Hz</Text>
             </View>
           </View>
         </View>
