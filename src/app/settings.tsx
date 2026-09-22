@@ -1,4 +1,5 @@
 import { Text, View, ScrollView } from "react-native";
+import ToggleButton from "../components/ToggleButton.tsx"
 
 export default function Battery() {
   return (
@@ -14,7 +15,7 @@ export default function Battery() {
               <Text className="text-sm text-gray-400">Runs Foreground Service with persistent status notification</Text>
             </View>
             <View>
-              <Text>Input</Text>
+              <ToggleButton />
             </View>
           </View>
         </View>

@@ -11,6 +11,7 @@ export default function Device() {
   const [osVersion, setOsVersion] = useState<string[]>([])
   const [display, setDisplay] = useState<any>(["100 x 100","500 dpi"])
   const [socAndDisplayRefreshRate,setSocAndDisplayRefreshRate] = useState<any>([])
+  const [displayMetrics, setDisplayMetrics] = useState<any>()
   const allSpecs = ["buildSpecs","androidSpecs","displaySpecs"]
 
   const getBuildSpecs = () => {
@@ -28,6 +29,12 @@ export default function Device() {
     setOsVersion([androidVersion,sdkVersion])
   }
 
+  const getDisplayMetrics = () => {
+    const resolution = DeviceInfo.getResolution()
+    const dpi = DeviceInfo.getDpi()
+    setDisplayMetrics({resolution,dpi})
+  }
+  
   const getSocAndDisplayRefreshRate = () => {
     const soc = Battery.getBatterySoc()
     const refreshRate = Battery.getDisplayRefreshRate()
@@ -38,6 +45,7 @@ export default function Device() {
     getBuildSpecs()
     getOsVersion()
     getSocAndDisplayRefreshRate()
+    getDisplayMetrics()
   },[])
   return (
     <ScrollView className="bg-[#0b1326]">
